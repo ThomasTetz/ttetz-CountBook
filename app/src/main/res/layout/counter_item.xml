@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
+
+    <TextView
+        android:id="@+id/counter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_alignBottom="@+id/decrease_counter_button"
+        android:layout_toStartOf="@+id/decrease_counter_button"
+        android:layout_marginEnd="31dp" />
+    <!--android:layout_alignBaseline="@+id/list_item_btn"-->
+    <!--android:layout_alignBottom="@+id/list_item_btn"-->
+    <!--android:layout_alignParentStart="true"-->
+
+    <!--android:layout_alignBottom="@+id/counter_name"-->
+    <!--android:layout_alignParentEnd="true"-->
+
+    <ImageButton
+        android:id="@+id/increase_counter_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="24dp" />
+    <!--android:layout_below="@+id/list_item_btn"-->
+    <!--android:layout_marginStart="49dp"-->
+    <!--android:layout_toEndOf="@+id/counter_value"-->
+
+    <ImageButton
+        android:id="@+id/decrease_counter_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/presence_busy"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/counter_value"
+        android:layout_marginEnd="15dp" />
+    <!--android:layout_alignBottom="@+id/counter_value"-->
+    <!--android:layout_toStartOf="@+id/list_item_btn"-->
+
+    <TextView
+        android:id="@+id/counter_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_alignBottom="@+id/decrease_counter_button"
+        android:layout_toStartOf="@+id/increase_counter_button" />
+
+    <ImageButton
+        android:id="@+id/edit_counter_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="13dp"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+    <!--android:layout_alignStart="@+id/increase_counter_button"-->
+    <!--android:layout_alignTop="@+id/counter_name"-->
+
+</RelativeLayout>
