@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditCounter" />
-        <activity android:name=".CreateCounter"></activity>
+        <activity android:name=".CreateCounter" />
+        <activity android:name=".view_counter"></activity>
     </application>
 
 </manifest>

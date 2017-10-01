@@ -1,6 +1,7 @@
 package com.example.ttetz_countbook;
 // reference https://www.youtube.com/watch?v=ZEEYYvVwJGY
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(RESULT_OK);
 
-                openCounterEdit();
+                addCounter();
 
             }
         });
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
               @Override
               public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                   Toast.makeText(MainActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+                  editCounter(position);
               }
           }
 
@@ -67,9 +69,10 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 //		String[] tweets = loadFromFile();
 //        loadFromFile();
-        generateListContent();
+//        generateListContent();
         adapter = new MyListAdapter(this, R.layout.counter_item, counters);
         counterList.setAdapter(adapter);
+        myUpdate();
     }
 
     private void generateListContent(){
@@ -83,9 +86,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void openCounterEdit(){
-        counters.add(new Counter("Test", 0, 1));
-        counters.add(new Counter("Test", 0, 1, "comment"));
+    public void addCounter(){
+//        counters.add(new Counter("Test", 0, 1));
+//        counters.add(new Counter("Test", 0, 1, "comment"));
+
+        Intent intent  = new Intent(getApplicationContext(), EditCounter.class);
+        startActivity(intent);
+
+
         myUpdate();
 //        adapter.notifyDataSetChanged();
 //        tweets.add(new NormalTweet(text));
@@ -113,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.counterCount = (TextView) convertView.findViewById(R.id.counter_value);
                 viewHolder.increaseCountButton = (ImageButton) convertView.findViewById(R.id.increase_counter_button);
                 viewHolder.decreaseCountButton = (ImageButton) convertView.findViewById(R.id.decrease_counter_button);
+//                int counterCount = viewHolder.counterCount.get
 
 
 //                viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.list_item_thumbnail);
@@ -127,14 +136,21 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.increaseCountButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v){
-                        Toast.makeText(getContext(), "Increase clicked for list item " + position, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "Increase clicked for list item " + position, Toast.LENGTH_SHORT).show();
+                        increaseCount(position);
+                        notifyDataSetChanged();
                     }
                 });
 
                 viewHolder.decreaseCountButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v){
-                        Toast.makeText(getContext(), "Decrease clicked for list item " + position, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "Decrease clicked for list item " + position, Toast.LENGTH_SHORT).show();
+                        decreaseCount(position);
+                        notifyDataSetChanged();
+//                        mainViewHolder.counterCount.setText(Integer.toString(counters.get(position).getCurrentCount()));
+//                        Toast.makeText(getContext(), "Decrease clicked for list item " + position
+//                                + ": " + counterCount.get, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -154,6 +170,25 @@ public class MainActivity extends AppCompatActivity {
             return convertView;
         }
 
+    }
+
+    public void editCounter(int position){
+        Intent intent  = new Intent(getApplicationContext(), EditCounter.class);
+        // could make Counter parcelable or serializable and pass the custom object in a bundle
+        intent.putExtra("name", counters.get(position).getName());
+        intent.putExtra("date", counters.get(position).getDate().getTime());
+        intent.putExtra("initialCount", counters.get(position).getInitialCount());
+        intent.putExtra("currentCount", counters.get(position).getCurrentCount());
+        intent.putExtra("comment", counters.get(position).getComment());
+        startActivity(intent);
+    }
+
+    public void increaseCount(int position){
+        counters.get(position).incrementCount();
+    }
+
+    public void decreaseCount(int position){
+        counters.get(position).decrementCount();
     }
 
     public class ViewHolder{

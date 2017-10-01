@@ -49,6 +49,14 @@ public class Counter {
         return name;
     }
 
+    public void setDate(Date date){
+        this.date = date;
+    }
+
+    public Date getDate(){
+        return date;
+    }
+
     public void setInitialCount(int initialCount){
         this.initialCount = initialCount;
     }
@@ -63,6 +71,19 @@ public class Counter {
 
     public int getCurrentCount(){
         return currentCount;
+    }
+
+    public void incrementCount(){
+        currentCount += 1;
+    }
+
+    public void decrementCount(){
+        if (currentCount > 0){
+            currentCount -= 1;
+        }
+        else{
+            currentCount = 0;
+        }
     }
 
     public void setComment(String comment){
