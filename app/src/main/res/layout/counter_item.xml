@@ -18,9 +18,8 @@
         android:id="@+id/counter_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginStart="11dp"
         android:layout_alignBottom="@+id/reset_counter_button"
+        android:layout_marginStart="11dp"
         android:layout_toEndOf="@+id/reset_counter_button" />
     <!--android:layout_alignBaseline="@+id/list_item_btn"-->
     <!--android:layout_alignBottom="@+id/list_item_btn"-->
@@ -57,16 +56,14 @@
         android:id="@+id/counter_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:layout_alignBottom="@+id/decrease_counter_button"
-        android:layout_toStartOf="@+id/increase_counter_button"
-        android:layout_marginEnd="12dp" />
+        android:layout_marginEnd="12dp"
+        android:layout_toStartOf="@+id/increase_counter_button" />
 
     <TextView
         android:id="@+id/counterDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date"
         android:layout_alignBottom="@+id/decrease_counter_button"
         android:layout_centerHorizontal="true" />
 

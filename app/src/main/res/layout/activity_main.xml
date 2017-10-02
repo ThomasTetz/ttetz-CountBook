@@ -12,14 +12,14 @@
         android:id="@+id/counterCountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintRight_toLeftOf="@+id/addCounterButton"
-        android:layout_marginRight="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/addCounterButton"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Counters: 0"
+        app:layout_constraintBottom_toBottomOf="@+id/addCounterButton"
+        app:layout_constraintRight_toLeftOf="@+id/addCounterButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/addCounterButton"

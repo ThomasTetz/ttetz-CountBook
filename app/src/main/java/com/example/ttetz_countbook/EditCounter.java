@@ -45,12 +45,12 @@ public class EditCounter extends AppCompatActivity {
     Gson gson = new Gson();
 
 
-    private ArrayList<Counter> counters = new ArrayList<Counter>();
+    private ArrayList<Counter> editCounters = new ArrayList<Counter>();
 //    counters.add(new Counter("Apple", 0, 12, "Comment A"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("\n\nCreated edit\n\n");
+        System.out.println("\n.\nCreated edit\n.\n");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_counter);
 
@@ -74,12 +74,12 @@ public class EditCounter extends AppCompatActivity {
 
             Type typeOfListOfCounter = new TypeToken<ArrayList<Counter>>() {
             }.getType();
-            counters = gson.fromJson(countersString, typeOfListOfCounter);
+            editCounters = gson.fromJson(countersString, typeOfListOfCounter);
 
             if (extras.containsKey("position")) {
                 edit = true;
                 position = extras.getInt("position");
-                counter = counters.get(position);
+                counter = editCounters.get(position);
                 name = counter.getName();
                 date = counter.getDate();
                 initialCount = counter.getInitialCount();
@@ -98,7 +98,7 @@ public class EditCounter extends AppCompatActivity {
 //            counters = new Gson().fromJson(countersString, ArrayList.class);
 
 
-            System.out.println("Counters given to edit\n" + counters);
+            System.out.println("\n.\nCounters given to edit\n"+editCounters.size()+"\n" + editCounters);
 
 //            name = extras.getString("name");
 //            date = new Date();
@@ -184,14 +184,14 @@ public class EditCounter extends AppCompatActivity {
             Counter newCounter = new Counter(newName, newInititalCount, newCurrentCount, newComment, new Date());
 
 //            date = new Date(); // if new or anything is changed
-            System.out.println("Before add in edit\n"+counters);
+            System.out.println("\n.\nBefore add in edit\n"+editCounters.size()+"\n"+editCounters);
             System.out.println("Adding in edit");
-            counters.add(newCounter);
+            editCounters.add(newCounter);
         }
         else{ // editing counter
             System.out.println("Edited existin in edit");
             if (newCurrentCount != currentCount){ // check if date should be updated
-                counters.set(position, new Counter(newName, newInititalCount, newCurrentCount, newComment, new Date()));
+                editCounters.set(position, new Counter(newName, newInititalCount, newCurrentCount, newComment, new Date()));
 //                counter.setName(newName);
 //                counter.setInitialCount(newInititalCount);
 //                counter.setCurrentCount(newCurrentCount);
@@ -199,7 +199,7 @@ public class EditCounter extends AppCompatActivity {
 //                counter.setDate(new Date());
             }
             else{ // date shouldn't change
-                counters.set(position, new Counter(newName, newInititalCount, newCurrentCount, newComment, date));
+                editCounters.set(position, new Counter(newName, newInititalCount, newCurrentCount, newComment, date));
 //                counter
             }
 
@@ -208,8 +208,8 @@ public class EditCounter extends AppCompatActivity {
 
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        System.out.println("Counters leaving edit\n"+counters);
-        countersString = (new Gson().toJson(counters));
+        System.out.println("\n.\nCounters leaving edit\n+"+editCounters.size()+"\n"+editCounters);
+        countersString = (new Gson().toJson(editCounters));
         intent.putExtra("counters", countersString);
 //        intent.putExtra("position", position);
 //        intent.putExtra("name", newName);
@@ -236,9 +236,9 @@ public class EditCounter extends AppCompatActivity {
     public void deleteCounter(){
         // ?
         // should just give the counterlist
-        counters.remove(position);
+        editCounters.remove(position);
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        countersString = (new Gson().toJson(counters));
+        countersString = (new Gson().toJson(editCounters));
         intent.putExtra("counters", countersString);
         setResult(MainActivity.DELETE_CODE, intent);
         finish();
