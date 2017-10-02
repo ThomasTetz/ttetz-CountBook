@@ -1,3 +1,9 @@
+/*
+  I did not finish adding JavaDocs in place of comments everywhere.
+  There is an issue with updating data that is discussed in README.txt and can be seen in the video.
+  Could use more error handling and OOP.
+ */
+
 package com.example.ttetz_countbook;
 // reference https://www.youtube.com/watch?v=ZEEYYvVwJGY
 import android.content.Context;
@@ -32,38 +38,46 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
+/**
+ * Main activity for the app.
+ *
+ * @author thomas
+ * @version 1.5
+ * @since 1.0
+ */
 public class MainActivity extends AppCompatActivity {
-    private static final String FILENAME = "file.sav";
+    private static final String FILENAME = "file.sav"; // file to save data
 
-    private ListView counterList;
-    private ArrayList<Counter> counters = new ArrayList<Counter>();
-    private MyListAdapter adapter;
+    private ListView counterList; // ListView to hold counters
+    private ArrayList<Counter> counters = new ArrayList<Counter>(); // ArrayList of Counters
+    private MyListAdapter adapter; // custom adapter for Counter/counter_item in ListView
 
-    private ArrayList<View> viewList = new ArrayList<View>();
     public static final int REQUEST_CODE = 1;
     public static final int DELETE_CODE = -3;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 
-    public boolean fixClick = false;
+    public boolean fixClick = false; // boolean discussed in README.txt to address updating problem
 
-    Button fixButton1;
-//    View.OnClickListener clickFix1;
-//    View.OnClickListener clickFix2
-
+    // for data formatting to pass/save/load
     Gson gson = new Gson();
 
+    /**
+     *
+     * Called when the activity is first created.
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // button for adding new counters
         ImageButton addCounterButton = (ImageButton) findViewById(R.id.addCounterButton);
+        // ListView holding the list of Counters
         counterList = (ListView) findViewById(R.id.counterList);
-//        adapter = new MyListAdapter(this, R.layout.counter_item, counters);
-//        counterList.setAdapter(adapter);
 
+        // listen for click on the addCounterButton
         addCounterButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -74,29 +88,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        counterList = (ListView) findViewById(R.id.counterList);
-
+        // listen for click on counterList item to go to the edit screen
         counterList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
               @Override
               public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                   editCounter(position);
               }
           }
-
         );
-
-
     }
 
+    /**
+     *
+     * Called when the activityForResult returns.
+     *
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUEST_CODE) {
 
             if (resultCode == MainActivity.RESULT_OK) {
+                // returned from saving
+
+                // Should replace with method for the extracting/encoding of gson
                 String countersString = data.getStringExtra("counters");
                 Type typeOfListOfCounter = new TypeToken<ArrayList<Counter>>(){}.getType();
-
                 ArrayList<Counter> tmpCounts = gson.fromJson(countersString, typeOfListOfCounter);
                 counters.clear();
                 counters.addAll(tmpCounts);
@@ -106,10 +123,11 @@ public class MainActivity extends AppCompatActivity {
 
 
             } else if (resultCode == MainActivity.RESULT_CANCELED) {
+                // returned from cancelling edit
                 myUpdate();
             }
             else if(resultCode == MainActivity.DELETE_CODE){
-                // delete from list
+                // returned from deleting counter
                 String countersString = data.getStringExtra("counters");
                 Type typeOfListOfCounter = new TypeToken<ArrayList<Counter>>(){}.getType();
 
@@ -123,12 +141,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     * Called when the activity is started.
+     *
+     */
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
         fixClick = false;
-
         adapter = new MyListAdapter(this, R.layout.counter_item, counters);
         counterList.setAdapter(adapter);
         loadFromFile();
@@ -136,19 +158,23 @@ public class MainActivity extends AppCompatActivity {
 
 //
 
+    /**
+     *
+     * Called when the activity is first created.
+     *
+     */
     public void addCounter(){
-
+        // go to the EditCounter activity to add a new counter
         Intent intent  = new Intent(getApplicationContext(), EditCounter.class);
-
         String countersString = (new Gson().toJson(counters));
         intent.putExtra("counters", countersString);
-
         startActivityForResult(intent, REQUEST_CODE);
 
     }
 
 
     private class MyListAdapter extends ArrayAdapter<Counter> {
+        // custom ArrayAdapter for Counter objects
         private int layout;
         private ArrayList<Counter>  items = new ArrayList<Counter>();
         public MyListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Counter> objects) {
@@ -158,10 +184,12 @@ public class MainActivity extends AppCompatActivity {
             this.items.addAll(objects);
         }
 
+        // gets the counters - unused
         public ArrayList<Counter> getCounters(){
             return items;
         }
 
+        // sets the counters - unused
         public void setCounters(ArrayList<Counter> counters){
             this.items.clear();
             this.items.addAll(counters);
@@ -232,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
                 mainViewHolder.counterCount.setText(Integer.toString(counters.get(position).getCurrentCount()));
             }
 
-            viewList.add(convertView);
             return convertView;
 
         }
@@ -272,6 +299,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void myUpdate(){
+        // failed attempt to fix notifyDataSetChanged() problem by using threads
 
         runOnUiThread(new Runnable() {
             @Override
@@ -282,13 +310,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        counterList.invalidateViews();
+        counterList.invalidateViews(); // failed attempt to fix notifyDataSetChanged() problem
         adapter.notifyDataSetChanged();
         adapter.notifyDataSetChanged();
 
         clearFile();
         saveInFile();
 
+        // update the value for number of counters
         int i = adapter.getCount();
         TextView counterCount = (TextView) findViewById(R.id.counterCountTextView);
         counterCount.setText("Counters: " + Integer.toString(i));
@@ -327,8 +356,6 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
     }
-
-
 
     /**
      *
