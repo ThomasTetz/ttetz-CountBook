@@ -1,12 +1,9 @@
 package com.example.ttetz_countbook;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,7 +43,6 @@ public class EditCounter extends AppCompatActivity {
 
 
     private ArrayList<Counter> editCounters = new ArrayList<Counter>();
-//    counters.add(new Counter("Apple", 0, 12, "Comment A"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,35 +90,9 @@ public class EditCounter extends AppCompatActivity {
 
             }
 
-
-//            counters = new Gson().fromJson(countersString, ArrayList.class);
-
-
-            System.out.println("\n.\nCounters given to edit\n"+editCounters.size()+"\n" + editCounters);
-
-//            name = extras.getString("name");
-//            date = new Date();
-//            dateLong = extras.getLong("date");
-//            date.setTime(dateLong);
-//            initialCount = extras.getInt("initialCount");
-//            currentCount = extras.getInt("currentCount");
-//            comment = extras.getString("comment");
-
-
         } else { // creating new counter
-            // button says cancel instead of delete
-            // what if return? replace cancel button with return
             System.out.println("Should've gotten counters");
-//            edit = false;
-//            name = "";
-//            // set date on save
-//            initialCount = 0;
-//            currentCount = 0;
-//            position = -1; // new value flag
-            // do edit/save and delete/cancel
         }
-
-
 
         saveButton.setOnClickListener(new View.OnClickListener() {
 
@@ -147,7 +117,6 @@ public class EditCounter extends AppCompatActivity {
             }
         });
 
-
         deleteButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -159,12 +128,8 @@ public class EditCounter extends AppCompatActivity {
 
     }
 
-
-
     public void saveChanges(){
         // get values from stuff
-        System.out.println("Trying to save");
-        Log.d("MOO", "Trying to save");
         String newName = nameEditText.getText().toString();
         int newInititalCount  = Integer.parseInt(initialCountEditText.getText().toString());
         int newCurrentCount;
@@ -183,49 +148,26 @@ public class EditCounter extends AppCompatActivity {
 
             Counter newCounter = new Counter(newName, newInititalCount, newCurrentCount, newComment, new Date());
 
-//            date = new Date(); // if new or anything is changed
-            System.out.println("\n.\nBefore add in edit\n"+editCounters.size()+"\n"+editCounters);
-            System.out.println("Adding in edit");
             editCounters.add(newCounter);
         }
         else{ // editing counter
-            System.out.println("Edited existin in edit");
             if (newCurrentCount != currentCount){ // check if date should be updated
                 editCounters.set(position, new Counter(newName, newInititalCount, newCurrentCount, newComment, new Date()));
-//                counter.setName(newName);
-//                counter.setInitialCount(newInititalCount);
-//                counter.setCurrentCount(newCurrentCount);
-//                counter.setComment(newComment);
-//                counter.setDate(new Date());
+
             }
             else{ // date shouldn't change
                 editCounters.set(position, new Counter(newName, newInititalCount, newCurrentCount, newComment, date));
-//                counter
             }
 
         }
-
-
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         System.out.println("\n.\nCounters leaving edit\n+"+editCounters.size()+"\n"+editCounters);
         countersString = (new Gson().toJson(editCounters));
         intent.putExtra("counters", countersString);
-//        intent.putExtra("position", position);
-//        intent.putExtra("name", newName);
-//        intent.putExtra("date", date);
-//        intent.putExtra("initialCount", newInititalCount);
-//        intent.putExtra("currentCount", newCurrentCount);
-//        intent.putExtra("comment", newComment);
-
-
-//        intent.putExtra("pos", position);
 
         setResult(MainActivity.RESULT_OK, intent);
         finish();
-//        startActivity(intent);
-
-
 
     }
     public void cancelChanges(){
@@ -234,8 +176,7 @@ public class EditCounter extends AppCompatActivity {
         finish();
     }
     public void deleteCounter(){
-        // ?
-        // should just give the counterlist
+
         editCounters.remove(position);
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         countersString = (new Gson().toJson(editCounters));
@@ -243,8 +184,4 @@ public class EditCounter extends AppCompatActivity {
         setResult(MainActivity.DELETE_CODE, intent);
         finish();
     }
-
-
-
-
 }

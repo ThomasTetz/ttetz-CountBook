@@ -14,10 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -85,29 +83,12 @@ public class MainActivity extends AppCompatActivity {
         counterList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
               @Override
               public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-//                  Toast.makeText(MainActivity.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
                   editCounter(position);
               }
           }
 
         );
 
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) { // editing existing counter
-//
-////            int position = extras.getInt("position");
-////            name = extras.getString("name");
-////            date = new Date();
-////            dateLong = extras.getLong("date");
-////            date.setTime(dateLong);
-////            initialCount = extras.getInt("initialCount");
-////            currentCount = extras.getInt("currentCount");
-////            comment = extras.getString("comment");
-////
-////            counters.add(new Counter(name, initialCount, currentCount, comment));
-//        }
-
-//    myUpdate();
 
     }
 
@@ -120,48 +101,26 @@ public class MainActivity extends AppCompatActivity {
                 String countersString = data.getStringExtra("counters");
                 Type typeOfListOfCounter = new TypeToken<ArrayList<Counter>>(){}.getType();
 
-//                System.out.println("Giving to edit\n"+adapter.getCounters());
-//                counters.clear();
                 ArrayList<Counter> tmpCounts = gson.fromJson(countersString, typeOfListOfCounter);
-//                adapter.setCounters(tmpCounts);
                 counters.clear();
                 counters.addAll(tmpCounts);
                 adapter.notifyDataSetChanged();
 
-//                adapter.
-
-//                counters.addAll(tmpCounts);
-//                counters = gson.fromJson(countersString, typeOfListOfCounter);
-//                counterList
-                System.out.println("Received from edit\n"+counters.size()+"\n"+counters);
-//                adapter = new MyListAdapter(this, R.layout.counter_item, counters);
-//                counterList.setAdapter(adapter);
                 myUpdate();
 
-//                counters = new Gson().fromJson(countersString,  ArrayList.class);
-                System.out.println("Saved\n"+counters);
-//                int result = data.getIntExtra("pos");
-                // do something with the result
 
             } else if (resultCode == MainActivity.RESULT_CANCELED) {
-                System.out.println("Cancelled");
                 myUpdate();
-                // some stuff that will happen if there's no result
             }
             else if(resultCode == MainActivity.DELETE_CODE){
                 // delete from list
-                System.out.println("Deleting");
                 String countersString = data.getStringExtra("counters");
                 Type typeOfListOfCounter = new TypeToken<ArrayList<Counter>>(){}.getType();
-//                counters = gson.fromJson(countersString, typeOfListOfCounter);
-//                counters.clear();
 
                 ArrayList<Counter> tmpCount = gson.fromJson(countersString, typeOfListOfCounter);
-//                adapter.setCounters(tmpCount);
                 counters.clear();
                 counters.addAll(tmpCount);
                 adapter.notifyDataSetChanged();
-//                counters.addAll(tmpCount);
                 myUpdate();
 
             }
@@ -172,32 +131,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-//		String[] tweets = loadFromFile();
         fixClick = false;
 
         System.out.println("Starting main");
-//        generateListContent();
         adapter = new MyListAdapter(this, R.layout.counter_item, counters);
         counterList.setAdapter(adapter);
         loadFromFile();
-//        myUpdate();
     }
 
-    private void generateListContent(){
-//        for (int i = 0; i<5; i++){
-//            counters.add(new Counter("Candy", 0, 12, "Comment"));
-//        }
-        counters.add(new Counter("Apple", 0, 12, "Comment A", new Date()));
-//        counters.add(new Counter("Banana", 1, 13, "Comment B"));
-//        counters.add(new Counter("Carrot", 2, 14, "Comment C"));
-//        counters.add(new Counter("Dino", 3, 15, "Comment D"));
-
-    }
+//
 
     public void addCounter(){
-//        counters.add(new Counter("Test", 0, 1, "comment", new Date()));
-//        counters.add(new Counter("Test", 0, 1, "comment"));
-//        adapter.add(new Counter("Test", 3, 4, "comment", new Date()));
 
         Intent intent  = new Intent(getApplicationContext(), EditCounter.class);
 
@@ -206,11 +150,6 @@ public class MainActivity extends AppCompatActivity {
 
         startActivityForResult(intent, REQUEST_CODE);
 
-
-//        myUpdate();
-//        adapter.notifyDataSetChanged();
-//        tweets.add(new NormalTweet(text));
-//        adapter.notifyDataSetChanged();
     }
 
 
@@ -220,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
         public MyListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Counter> objects) {
             super(context, resource, objects);
             layout = resource;
-//            this.items = objects;
             this.items.clear();
             this.items.addAll(objects);
         }
@@ -234,15 +172,8 @@ public class MainActivity extends AppCompatActivity {
             this.items.addAll(counters);
             notifyDataSetChanged();
         }
-//        public void myRefresh(ArrayList<Counter> counters2){
-////            this.objects = counters2;
-//            notifyDataSetChanged();
-//        }
 
-        public void notify(ArrayList<Counter> list){
-            this.items= list;
-            notifyDataSetChanged();
-        }
+
         @Override
         public View getView(final int position, View convertView, ViewGroup parent){
             ViewHolder mainViewHolder = null;
@@ -257,18 +188,11 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.counterCount = (TextView) convertView.findViewById(R.id.counter_value);
                 viewHolder.increaseCountButton = (ImageButton) convertView.findViewById(R.id.increase_counter_button);
                 viewHolder.decreaseCountButton = (ImageButton) convertView.findViewById(R.id.decrease_counter_button);
-//                int counterCount = viewHolder.counterCount.get
-
-
-//                viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.list_item_thumbnail);
-//                viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
-//                viewHolder.button = (Button) convertView.findViewById(R.id.list_item_btn);
 
 
                 viewHolder.resetCountButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v){
-//                        Toast.makeText(getContext(), "Increase clicked for list item " + position, Toast.LENGTH_SHORT).show();
                         resetCount(position);
                         notifyDataSetChanged();
                         myUpdate();
@@ -279,8 +203,8 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.increaseCountButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v){
-//                        Toast.makeText(getContext(), "Increase clicked for list item " + position, Toast.LENGTH_SHORT).show();
-                        if (fixClick == false){
+
+                        if (fixClick == false){ // fix discussed in README
                             fixClick = true;
                             increaseCount(position);
                             decreaseCount(position);
@@ -298,35 +222,11 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.decreaseCountButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v){
-//                        Toast.makeText(getContext(), "Decrease clicked for list item " + position, Toast.LENGTH_SHORT).show();
                         decreaseCount(position);
                         notifyDataSetChanged();
                         myUpdate();
-//                        mainViewHolder.counterCount.setText(Integer.toString(counters.get(position).getCurrentCount()));
-//                        Toast.makeText(getContext(), "Decrease clicked for list item " + position
-//                                + ": " + counterCount.get, Toast.LENGTH_SHORT).show();
                     }
                 });
-//                viewHolder.decreaseCountButton.getOn
-//                fixButton1 = viewHolder.increaseCountButton;
-//                fixButton2 = viewHolder.decreaseCountButton;
-
-//               fixButton1.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v){
-////                        Toast.makeText(getContext(), "Decrease clicked for list item " + position, Toast.LENGTH_SHORT).show();
-//                        increaseCount(position);
-//                        notifyDataSetChanged();
-//                        decreaseCount(position);
-//                        notifyDataSetChanged();
-//                        myUpdate();
-////                        mainViewHolder.counterCount.setText(Integer.toString(counters.get(position).getCurrentCount()));
-////                        Toast.makeText(getContext(), "Decrease clicked for list item " + position
-////                                + ": " + counterCount.get, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-
-
 
                 convertView.setTag(viewHolder);
             }
@@ -338,9 +238,6 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("view counters " + counters);
                 mainViewHolder.counterDate.setText(sdf.format(counters.get(position).getDate()));
                 mainViewHolder.counterCount.setText(Integer.toString(counters.get(position).getCurrentCount()));
-//                System.out.println(counters.toString());
-//                System.out.println(counters.get(position).toString());
-
             }
 
             viewList.add(convertView);
@@ -354,14 +251,9 @@ public class MainActivity extends AppCompatActivity {
         String countersString = (new Gson().toJson(counters));
 
         Intent intent  = new Intent(getApplicationContext(), EditCounter.class);
-        // could make Counter parcelable or serializable and pass the custom object in a bundle
         intent.putExtra("counters", countersString);
         intent.putExtra("position", position);
-//        intent.putExtra("name", counters.get(position).getName());
-//        intent.putExtra("date", counters.get(position).getDate().getTime());
-//        intent.putExtra("initialCount", counters.get(position).getInitialCount());
-//        intent.putExtra("currentCount", counters.get(position).getCurrentCount());
-//        intent.putExtra("comment", counters.get(position).getComment());
+
         startActivityForResult(intent, REQUEST_CODE);
     }
 
@@ -385,9 +277,6 @@ public class MainActivity extends AppCompatActivity {
         ImageButton increaseCountButton;
         ImageButton decreaseCountButton;
 
-//        ImageView thumbnail;
-//        TextView title;
-//        Button button;
     }
 
     public void myUpdate(){
@@ -399,72 +288,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        ImageButton fixButton1 = (ImageButton) viewList.get(0).findViewById(R.id.increase_counter_button);
-//        fixButton1.callOnClick();
-//        ImageButton fixButton2 = (ImageButton) viewList.get(0).findViewById(R.id.decrease_counter_button);
-//        fixButton2.callOnClick();
 
-
-//        View view = counterList.getFirstVisiblePosition();
-//˜
-
-//        int pos = 0;
-//        counterList.setItemChecked(pos, true);
-//        View wantedView = adapter.getView(pos, null, counterList);
-//        wantedView.counter_name
-
-//        counterList.setAdapter(adapter);
-
-//        counters.clear();
-//        counters.addAll();
-//        adapter.getView();
-//        if (fixButton1 != null){
-//            fixButton1.performClick();
-//        }
-
-//        public View getView(final int position, View convertView, ViewGroup parent);
-
-//
-//        ArrayList<Counter> t2 = adapter.getCounters();
-//        if (t2.size()> 0){
-//            Counter c2 = t2.get(0);
-//            c2.incrementCount();
-//            c2.decrementCount();
-//
-//        }
-
-//        counter_item a = counterList.getFirstVisiblePosition().getOnclick;
-//        getListView.getFirstVisiblePosition
-
-//        adapter = new MyListAdapter(getActivity(), 0, counters);
         System.out.println("my ListView "+ counterList);
         System.out.println("my counters " + counters);
 
-//        for (int i=0;i<counters.size();i++){
-//            View view = counterList.getChildAt(i);
-//            System.out.println(".\nmy view: \n"+view+"\n.");
-//
-//            TextView tvName = (TextView) view.findViewById(R.id.counter_name);
-//            System.out.println("name: "+tvName.getText().toString());
-////            HexCode he = vitaminsList.get(i);
-////            he.setName(e.getText().toString());
-//
-//        }
         counterList.invalidateViews();
         adapter.notifyDataSetChanged();
-//        counterList.setAdapter(adapter);
-//        adapter.setCounters(counters);
         adapter.notifyDataSetChanged();
-//        counterList.destroyDrawingCache();
-//        counterList.setVisibility(ListView.INVISIBLE);
-//        counterList.setVisibility(ListView.VISIBLE);
-//        counterList.invalidateViews();
-//        counterList.setAdapter(adapter);
+
         clearFile();
         saveInFile();
-        // for each item, set values manually
 
-//        adapter.myRefresh();
         int i = adapter.getCount();
         TextView counterCount = (TextView) findViewById(R.id.counterCountTextView);
         counterCount.setText("Counters: " + Integer.toString(i));
@@ -477,7 +311,6 @@ public class MainActivity extends AppCompatActivity {
      *
      */
     private void loadFromFile() {
-//		ArrayList<String> tweets = new ArrayList<String>();
         try {
             FileInputStream fis = openFileInput(FILENAME);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
@@ -485,22 +318,13 @@ public class MainActivity extends AppCompatActivity {
             // add dependency: File > Project Structure > app < Dependencies < + < dependency
             Gson gson = new Gson();
             Type listType = new TypeToken<ArrayList<Counter>>() {}.getType();
-//            counters = gson.fromJson(in, listType);
 
 
             counters.clear();
             ArrayList<Counter> tmpCounts = gson.fromJson(in, listType);
-//            if (tmpCounts != null) {
-////                adapter.setCounters(tmpCounts);
-////                counters.addAll(tmpCounts);
-//            }
+
             counters.addAll(tmpCounts);
             adapter.notifyDataSetChanged();
-//            String line = in.readLine();
-//			while (line != null) {
-//				tweets.add(line);
-//				line = in.readLine();
-//			}
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -512,7 +336,6 @@ public class MainActivity extends AppCompatActivity {
 //			e.printStackTrace();
             throw new RuntimeException(e);
         }
-//		return tweets.toArray(new String[tweets.size()]);
     }
 
 
@@ -524,7 +347,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private void saveInFile() {
         try {
-//			FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_APPEND);
 //
             FileOutputStream fos = openFileOutput(FILENAME,
                     Context.MODE_PRIVATE);
@@ -532,8 +354,6 @@ public class MainActivity extends AppCompatActivity {
             Gson gson = new Gson();
             gson.toJson(counters, writer);
             writer.flush();
-// fos.write(new String(date.toString() + " | " + text+"\n")
-//					.getBytes());
             fos.close();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
