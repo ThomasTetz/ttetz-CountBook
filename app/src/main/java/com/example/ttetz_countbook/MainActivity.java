@@ -59,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("Creating main");
-
-//        fixButton1 = (Button) findViewById(R.id.fixButton);
-
         ImageButton addCounterButton = (ImageButton) findViewById(R.id.addCounterButton);
         counterList = (ListView) findViewById(R.id.counterList);
 //        adapter = new MyListAdapter(this, R.layout.counter_item, counters);
@@ -133,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         fixClick = false;
 
-        System.out.println("Starting main");
         adapter = new MyListAdapter(this, R.layout.counter_item, counters);
         counterList.setAdapter(adapter);
         loadFromFile();
@@ -233,9 +228,6 @@ public class MainActivity extends AppCompatActivity {
             else{
                 mainViewHolder = (ViewHolder) convertView.getTag();
                 mainViewHolder.counterName.setText(counters.get(position).getName());
-                System.out.println("updating name stuff");
-                System.out.println("view ListView "+ counterList);
-                System.out.println("view counters " + counters);
                 mainViewHolder.counterDate.setText(sdf.format(counters.get(position).getDate()));
                 mainViewHolder.counterCount.setText(Integer.toString(counters.get(position).getCurrentCount()));
             }
@@ -289,8 +281,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        System.out.println("my ListView "+ counterList);
-        System.out.println("my counters " + counters);
 
         counterList.invalidateViews();
         adapter.notifyDataSetChanged();

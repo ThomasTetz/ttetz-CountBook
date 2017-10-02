@@ -36,13 +36,6 @@ public class Counter {
         this.comment = "";
     }
 
-    public void UpdateCounter(int i){
-//        setName(atts[0]);
-//        setInitialCount(atts[1]);
-//        setCurrentCount(atts[2]);
-//        setComment(atts[4]);
-    }
-
     public void setName(String name){
         this.name = name;
     }

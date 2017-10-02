@@ -27,7 +27,6 @@ public class EditCounter extends AppCompatActivity {
     String name;
     String countersString;
     Date date;
-    long dateLong;
     int initialCount;
     int currentCount;
     String comment;
@@ -46,7 +45,6 @@ public class EditCounter extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("\n.\nCreated edit\n.\n");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_counter);
 
@@ -162,7 +160,6 @@ public class EditCounter extends AppCompatActivity {
         }
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        System.out.println("\n.\nCounters leaving edit\n+"+editCounters.size()+"\n"+editCounters);
         countersString = (new Gson().toJson(editCounters));
         intent.putExtra("counters", countersString);
 
