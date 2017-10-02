@@ -12,25 +12,26 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="Name"
         app:layout_constraintBottom_toBottomOf="@+id/editName"
-        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintHorizontal_bias="0.074"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/editName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.444" />
 
     <TextView
         android:id="@+id/initialCountTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="7dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="Initial Count"
         app:layout_constraintBottom_toBottomOf="@+id/editInitialCount"
-        app:layout_constraintHorizontal_bias="0.301"
+        app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/editInitialCount" />
 
@@ -38,24 +39,24 @@
         android:id="@+id/editedTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="72dp"
         android:text="Edited:"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentCountTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/commentTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/dateText"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintVertical_bias="0.666" />
 
     <TextView
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="121dp"
-        android:layout_marginTop="81dp"
-        android:text="Date"
-        app:layout_constraintBottom_toBottomOf="@+id/editedTitle"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editCurrentCount"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginTop="57dp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/editComment"
+        app:layout_constraintLeft_toRightOf="@+id/editedTitle"
+        android:layout_marginLeft="64dp" />
 
     <TextView
         android:id="@+id/currentCountTitle"
@@ -64,7 +65,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="Current Count"
-        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/editCurrentCount"
         app:layout_constraintBottom_toBottomOf="@+id/editCurrentCount"
@@ -72,39 +73,45 @@
 
     <EditText
         android:id="@+id/editName"
+        android:inputType="none"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
-        android:inputType="text"
-        android:text="Name"
+        android:text=""
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp" />
+    <!--android:inputType="text"-->
 
     <EditText
         android:id="@+id/editInitialCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:text="24"
-        android:layout_marginRight="16dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:digits="1234567890"
+        android:text="0"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editName" />
+    <!--android:inputType="number"-->
 
     <EditText
         android:id="@+id/editCurrentCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="24"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:digits="1234567890"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editInitialCount" />
+    <!--android:text="0"-->
+    <!--android:inputType="number"-->
+    <!--android:focusable="false"-->
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -128,9 +135,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/cancelButton"
+        app:layout_constraintRight_toLeftOf="@+id/saveButton"
+        android:layout_marginRight="8dp" />
+
+    <EditText
+        android:id="@+id/editComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editCurrentCount"
+        android:layout_marginRight="8dp" />
+
+    <TextView
+        android:id="@+id/commentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:layout_marginLeft="16dp"
+        android:text="Comment"
+        app:layout_constraintBottom_toBottomOf="@+id/editComment"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.ttetz_countbook;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -13,22 +14,23 @@ public class Counter {
     private int currentCount;
     private String comment;
 
-    public Counter(String name, int initialCount, int currentCount, String comment){
+
+    public Counter(String name, int initialCount, int currentCount, String comment, Date date){
         // constructor if created with a comment
         this.name = name;
-//        this.date = date;
-        this.date = new Date();
+        this.date = date;
+//        this.date = new Date();
         this.initialCount = initialCount;
         this.currentCount = currentCount;
         this.comment = comment;
     }
 
-    public Counter(String name, int initialCount, int currentCount){
+    public Counter(String name, int initialCount, int currentCount, Date date){
         // constructor if created without a comment
         // what if created with comment then it is deleted while editing
         this.name = name;
-//        this.date = date;
-        this.date = new Date();
+        this.date = date;
+//        this.date = new Date();
         this.initialCount = initialCount;
         this.currentCount = currentCount;
         this.comment = "";
@@ -75,15 +77,24 @@ public class Counter {
 
     public void incrementCount(){
         currentCount += 1;
+        setDate(new Date());
     }
 
     public void decrementCount(){
         if (currentCount > 0){
             currentCount -= 1;
+            setDate(new Date());
         }
         else{
             currentCount = 0;
         }
+    }
+
+    public void resetCount(){
+        if (currentCount != initialCount){
+            setDate(new Date());
+        }
+        currentCount = initialCount;
     }
 
     public void setComment(String comment){
